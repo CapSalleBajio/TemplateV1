@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'practica1';
+  user = null;
+
+
+  onSelectedUser($event): void {
+    this.user = $event;
+  }
 }
