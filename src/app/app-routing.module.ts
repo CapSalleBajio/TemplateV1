@@ -8,6 +8,7 @@ const routes: Routes = [
   {path: '', component: UserListComponent},
   {path: 'profile', component: UserProfileComponent},
   {path: 'students', loadChildren: () => StudentModule },
+  {path: 'teachers', loadChildren: () => import('./teacher/teacher.module').then((m) => m.TeacherModule)},
   {path: '**', redirectTo: 'profile'}
 ];
 

@@ -7,6 +7,10 @@
     <app-user-list (selectedUser)="this.onSelectedUser($event)"></app-user-list>
   </div>
 </div> -->
-
-<router-outlet></router-outlet>
+<div class="container">
+  <app-nav-bar></app-nav-bar>
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
 
