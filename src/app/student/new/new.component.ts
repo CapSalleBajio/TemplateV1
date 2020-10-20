@@ -1,4 +1,14 @@
-import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, DoCheck, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterContentChecked,
+  AfterContentInit,
+  AfterViewChecked,
+  AfterViewInit,
+  Component,
+  DoCheck,
+  OnChanges,
+  OnDestroy,
+  OnInit
+} from '@angular/core';
 
 @Component({
   selector: 'app-new',
@@ -12,39 +22,41 @@ export class NewComponent implements
   AfterContentInit,
   AfterContentChecked,
   OnDestroy,
-  AfterViewChecked {
+  AfterViewChecked
+{
+
   constructor() { }
 
   ngOnInit(): void {
-    console.log('ngOnInit: ');
+    console.log('ngOnInit');
   }
 
-  ngOnChanges() {
-    console.log('ngOnChanges: ');
+  ngOnChanges(): void {
+    console.log('ngOnChanges');
   }
 
   /* ngDoCheck() {
-    console.log('ngDoCheck: ');
+    console.log('ngDoCheck');
   } */
 
-  ngAfterViewInit() {
-    console.log('ngAfterViewInit: ');
+  ngAfterViewInit(): void {
+    console.log('ngAfterViewInit');
   }
 
-  ngAfterViewChecked() {
-    console.log('ngAfterViewChecked: ');
+  ngAfterViewChecked(): void {
+    console.log('ngAfterViewChecked');
   }
 
-  ngAfterContentInit() {
-    console.log('ngAfterContentInit: ');
+  ngAfterContentInit(): void {
+    console.log('ngAfterContentInit');
   }
 
-  ngAfterContentChecked() {
-    console.log('ngAfterContentChecked: ');
+  ngAfterContentChecked(): void {
+    console.log('ngAfterContentChecked');
   }
 
-  ngOnDestroy() {
-    console.log('ngOnDestroy: ');
+  ngOnDestroy(): void {
+    console.log('ngOnDestroy');
   }
 
 
