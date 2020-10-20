@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { IUser } from 'src/app/interfaces/user/user.interface';
 
 @Component({
   selector: 'app-user-list',
@@ -7,10 +8,10 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class UserListComponent implements OnInit {
 
-  @Output() selectedUser: EventEmitter<{id: number, name: string, email: string, score: number, description: string}> = new EventEmitter();
+  @Output() selectedUser: EventEmitter<IUser> = new EventEmitter();
   constructor() { }
 
-  users: {id: number, name: string, email: string, score: number, description: string}[] = [
+  users: IUser[] = [
     { id: 1, name: 'Luis Torres', email: 'luistorres@correo.com', score: 9.2, description: 'D 1' },
     { id: 2, name: 'Javier Moreno', email: 'jMoreno@correo.com', score: 5.4, description: 'D 2' },
     { id: 3, name: 'Karina Marquez', email: 'kMarquez@correo.com', score: 10, description: 'D 3' },
