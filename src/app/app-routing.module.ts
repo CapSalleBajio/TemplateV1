@@ -7,11 +7,11 @@ import { HasSessionGuard } from './guards/hasSession/has-session.guard';
 import { StudentModule } from './student/student.module';
 
 const routes: Routes = [
-  {path: '', component: UserListComponent, canDeactivate: [ExitGuard]},
-  {path: 'profile', component: UserProfileComponent},
-  {path: 'students', loadChildren: () => StudentModule },
-  {path: 'teachers', loadChildren: () => import('./teacher/teacher.module').then((m) => m.TeacherModule)},
-  {path: '**', redirectTo: 'profile'}
+  /* {path: '', component: UserListComponent, canDeactivate: [ExitGuard]},
+  {path: 'profile', component: UserProfileComponent}, */
+  {path: 'auth', loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule) },
+  {path: 'home', loadChildren: () => import('./home/home.module').then((m) => m.HomeModule) },
+  {path: '**', redirectTo: 'auth'}
 ];
 
 @NgModule({

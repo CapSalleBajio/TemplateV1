@@ -2,12 +2,13 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { IUser } from 'src/app/interfaces/user/user.interface';
+import { UserService } from 'src/app/services/user/user.service';
 import { IExit } from '../../interfaces/guards/exit.interface';
 
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.scss']
+  styleUrls: ['./user-list.component.scss'],
 })
 export class UserListComponent implements OnInit, IExit {
 
@@ -19,10 +20,11 @@ export class UserListComponent implements OnInit, IExit {
     { id: 4, name: 'Gregorio Lopez', email: 'glopez@correo.com', score: 2.9, description: 'D 4' }
   ];
 
-  constructor() { }
+  constructor(
+    private userService: UserService,
+  ) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   onSelectedUser(index: number): void {
     this.selectedUser.emit(this.users[index]);
