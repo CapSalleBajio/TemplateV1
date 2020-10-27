@@ -1,7 +1,9 @@
  export interface IUser {
     id: number;
-    name?: string;
     email: string;
-    score: number;
-    description: string;
+    password?: string;
+    role?: 'student' | 'teacher';
+    name?: string;
+    score?: number;
+    description?: string;
 }
