@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-template',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TemplateComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+  ) { }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    /* this.activatedRoute.params.subscribe((params: Params) => {
+      console.log('Observable:' , params);
+    }); */
+
   }
 
 }

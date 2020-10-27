@@ -1,63 +1,30 @@
-import {
-  AfterContentChecked,
-  AfterContentInit,
-  AfterViewChecked,
-  AfterViewInit,
-  Component,
-  DoCheck,
-  OnChanges,
-  OnDestroy,
-  OnInit
-} from '@angular/core';
+import { OnInit, Component } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-new',
   templateUrl: './new.component.html',
   styleUrls: ['./new.component.scss']
 })
-export class NewComponent implements
-  OnInit,
-  OnChanges,
-  AfterViewInit,
-  AfterContentInit,
-  AfterContentChecked,
-  OnDestroy,
-  AfterViewChecked
-{
+export class NewComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit(): void {
-    console.log('ngOnInit');
+  constructor(
+    private activatedRoute: ActivatedRoute,
+  ) {
+    console.log('Constrcutor');
   }
 
-  ngOnChanges(): void {
-    console.log('ngOnChanges');
+  async ngOnInit() {
+    this.activatedRoute.params.subscribe((params: Params) => {
+      console.log('Prams:' , params);
+    });
+
+    try {
+      const params = await this.activatedRoute.params.pipe(take(1)).toPromise();
+      console.log('params: ', params);
+    } catch (error) {
+      console.error(error);
+    }
   }
-
-  /* ngDoCheck() {
-    console.log('ngDoCheck');
-  } */
-
-  ngAfterViewInit(): void {
-    console.log('ngAfterViewInit');
-  }
-
-  ngAfterViewChecked(): void {
-    console.log('ngAfterViewChecked');
-  }
-
-  ngAfterContentInit(): void {
-    console.log('ngAfterContentInit');
-  }
-
-  ngAfterContentChecked(): void {
-    console.log('ngAfterContentChecked');
-  }
-
-  ngOnDestroy(): void {
-    console.log('ngOnDestroy');
-  }
-
-
 }
