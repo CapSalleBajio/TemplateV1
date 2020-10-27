@@ -13,11 +13,6 @@ export class TemplateComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
   ) { }
 
-  async ngOnInit() {
-    /* this.activatedRoute.params.subscribe((params: Params) => {
-      console.log('Observable:' , params);
-    }); */
-
-  }
+  ngOnInit(): void { }
 
 }
