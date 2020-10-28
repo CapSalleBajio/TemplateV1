@@ -11,7 +11,13 @@ export class UserService {
       email: 'omar.salas@jynsystems.com',
       password: '123',
       role: 'teacher',
-    }
+    },
+    {
+      id: 2,
+      email: 'andres@jynsystems.com',
+      password: '123',
+      role: 'student',
+    },
   ];
 
   constructor() { }
@@ -24,11 +30,19 @@ export class UserService {
     const userFound = this.users.find(
       (user: IUser) => user.email === email && user.password === password
     );
-    return userFound ? true : false;
+    if (userFound) {
+      localStorage.setItem('user', JSON.stringify(userFound));
+      return true;
+    } else {
+      localStorage.removeItem('user');
+      return false;
+    }
   }
 
   register(user: IUser): IUser {
-    this.users.push({...user, id: this.users.length + 1});
+    const userFinal = {...user, id: this.users.length + 1};
+    this.users.push(userFinal);
+    localStorage.setItem('user', JSON.stringify(userFinal));
     return user;
   }
 
