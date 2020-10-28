@@ -9,7 +9,7 @@ const routes: Routes = [
     children: [
       {path: 'students', loadChildren: () => import('../student/student.module').then((m) => m.StudentModule) },
       {path: 'teachers', loadChildren: () => import('../teacher/teacher.module').then((m) => m.TeacherModule)},
-      {path: '**', redirectTo: 'student'}
+      {path: '**', redirectTo: 'students'}
     ]
   },
   {path: '**', redirectTo: ''}
