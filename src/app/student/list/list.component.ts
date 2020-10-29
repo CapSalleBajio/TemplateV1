@@ -35,4 +35,8 @@ export class ListComponent implements OnInit {
       console.error(error);
     }
   }
+
+  onEventButtons(event: boolean): void {
+    console.log(event);
+  }
 }

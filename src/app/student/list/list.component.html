@@ -1,5 +1,4 @@
 <div class="container">
-    <button type="button" class="btn btn-primary" (click)="showModal = !showModal;"> Agregar </button>
     <div class="content">
         <table class="table">
             <thead>
@@ -35,4 +34,10 @@
     </div>
 </div>
 
-<app-modal [show]="showModal"></app-modal>
+<button type="button" class="btn btn-primary" (click)="showModal = !showModal;"> Agregar </button>
+<app-modal [show]="showModal" (eventButtons)="onEventButtons($event)">
+
+  <app-new></app-new>
+
+
+</app-modal>
