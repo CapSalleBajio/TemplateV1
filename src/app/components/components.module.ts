@@ -6,6 +6,7 @@ import { UserRowComponent } from './user-row/user-row.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { RouterModule } from '@angular/router';
 import { UserService } from '../services/user/user.service';
+import { ModalComponent } from './modal/modal/modal.component';
 
 
 
@@ -15,12 +16,14 @@ import { UserService } from '../services/user/user.service';
     UserProfileComponent,
     UserRowComponent,
     NavBarComponent,
+    ModalComponent,
   ],
   exports: [
     UserListComponent,
     UserProfileComponent,
     UserRowComponent,
     NavBarComponent,
+    ModalComponent
   ],
   imports: [
     CommonModule,

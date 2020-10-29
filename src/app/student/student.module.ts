@@ -5,6 +5,8 @@ import { NewComponent } from './new/new.component';
 import { StudentRoutingModule } from './student-routing.module';
 import { TemplateComponent } from './template/template.component';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ComponentsModule } from '../components/components.module';
 
 
 
@@ -14,6 +16,8 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     StudentRoutingModule,
     RouterModule,
+    ReactiveFormsModule,
+    ComponentsModule,
   ]
 })
 export class StudentModule { }

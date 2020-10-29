@@ -1,1 +1,38 @@
-<p>list works!</p>
+<div class="container">
+    <button type="button" class="btn btn-primary" (click)="showModal = !showModal;"> Agregar </button>
+    <div class="content">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">id</th>
+                <th scope="col">Email</th>
+                <th scope="col">Contraseña</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let student of students; index as i;">
+                <th scope="row"> {{ student.id }} </th>
+                <td> {{ student.email }} </td>
+                <td> {{ student.password }} </td>
+                <td>
+                    <div style="display: flex; justify-content: space-around;">
+                        <img 
+                            src="./../../../assets/icons/edit.png" alt="" 
+                            width="15px" height="auto" 
+                            (click)="onEdit(student)"
+                        >
+                        <img 
+                            src="./../../../assets/icons/delete.png" alt="" 
+                            width="15px" height="auto" 
+                            (click)="onDelete(i, student.id)"
+                        >
+                    </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+</div>
+
+<app-modal [show]="showModal"></app-modal>
