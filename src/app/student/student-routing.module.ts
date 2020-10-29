@@ -7,7 +7,6 @@ import { TemplateComponent } from './template/template.component';
 const routes: Routes =  [
     {path: 'tpl', component: TemplateComponent, children: [
         {path: 'list', component: ListComponent},
-        // {path: 'new', component: NewComponent},
         {path: ':studentId', component: NewComponent},
         {path: '**', redirectTo: 'list'}
     ]},

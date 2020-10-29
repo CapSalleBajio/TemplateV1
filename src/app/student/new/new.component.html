@@ -22,6 +22,9 @@
       > Campo requerido </small>
   </div>
   <div class="d-flex" style="justify-content: flex-end;">
-      <button class="btn btn-primary ml-1" (click)="onRegister()"> Registrarse </button>
+      <button class="btn btn-primary ml-1" (click)="onRegister()" *ngIf="params.studentId === 'new'; else update"> Registrarse </button>
+      <ng-template #update>
+        <button class="btn btn-primary ml-1" (click)="onUpdate()"> Actualizar </button>
+      </ng-template>
   </div>
 </div>

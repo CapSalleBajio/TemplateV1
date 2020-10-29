@@ -46,8 +46,24 @@ export class UserService {
     return this.users;
   }
 
+  getUserById(id: number): IUser {
+    const userFound = this.users.find((user: IUser) => user.id === id);
+    return userFound ? userFound : null;
+  }
+
   getUsersByRole(role: 'student' | 'teacher'): IUser[] {
     return this.users.filter((user: IUser) => user.role === role);
+  }
+
+  updateUser(user: IUser): IUser {
+    const index = this.users.findIndex((userF: IUser) => userF.id === user.id);
+    if (index !== -1) {
+      const newUser = {...this.users[index], ...user};
+      this.users[index] = newUser;
+      return newUser;
+    } else {
+      return null;
+    }
   }
 
   addStudent(user: IUser): IUser {

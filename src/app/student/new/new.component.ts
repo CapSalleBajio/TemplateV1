@@ -1,6 +1,6 @@
 import { OnInit, Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { take } from 'rxjs/operators';
 import { UserService } from 'src/app/services/user/user.service';
 
@@ -11,10 +11,12 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class NewComponent implements OnInit {
   form: FormGroup;
+  params: Params;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private userService: UserService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -22,16 +24,29 @@ export class NewComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required),
     });
+    this.params = {};
+    this.getParams();
   }
 
   async getParams(): Promise<void> {
     this.activatedRoute.params.subscribe((params: Params) => {
       console.log('Prams:' , params);
+      this.params = params;
+      if (params.studentId === 'new') {
+        this.form.reset();
+      }
     });
 
     try {
-      const params = await this.activatedRoute.params.pipe(take(1)).toPromise();
-      console.log('params: ', params);
+      this.params = await this.activatedRoute.params.pipe(take(1)).toPromise();
+
+      const user = this.userService.getUserById(+this.params.studentId);
+      if (user) {
+        this.form = new FormGroup({
+          email: new FormControl(user.email, [Validators.required, Validators.email]),
+          password: new FormControl(user.password, Validators.required),
+        });
+      }
     } catch (error) {
       console.error(error);
     }
@@ -45,6 +60,20 @@ export class NewComponent implements OnInit {
         console.log('Usuario registrado');
       } else {
         console.error('El usuario ya existe.');
+      }
+    } else {
+      console.log('Formulario inválido');
+    }
+  }
+
+  onUpdate(): void {
+    if (this.form.valid) {
+      const res = this.userService.updateUser({...this.form.value, id: +this.params.studentId});
+      if (res) {
+        console.log('Usuario actualizado');
+        this.router.navigate(['/', 'home', 'students', 'tpl', 'list']);
+      } else {
+        console.error('El usuario no existe.');
       }
     } else {
       console.log('Formulario inválido');
