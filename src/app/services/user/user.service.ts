@@ -106,4 +106,18 @@ export class UserService {
     return user;
   }
 
+  validateEmail(email: string): Observable<boolean> {
+    return new Observable((observer: Observer<any>) => {
+      console.log('service email: ', email);
+      setTimeout(() => {
+        if (email === 'omar.salas@jynsystems.com') {
+          observer.error(new Error('Email ya esta registrado'));
+        } else {
+          observer.next({valid: true});
+        }
+        observer.complete();
+      }, 1000);
+    });
+  }
+
 }

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { debounceTime } from 'rxjs/operators';
 import { IUser } from 'src/app/interfaces/user/user.interface';
 import { UserService } from 'src/app/services/user/user.service';
+import { CustomValidators } from 'src/app/utils/custom-validators';
 
 @Component({
   selector: 'app-list',
@@ -24,9 +26,19 @@ export class ListComponent implements OnInit {
     this.students = this.userService.getUsersByRole('student');
 
     this.form = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
+      email: new FormControl('',
+        {
+          validators: [Validators.required, Validators.email],
+          asyncValidators: [CustomValidators.validateEmail(this.userService)],
+          updateOn: 'blur'
+        }
+      ),
       password: new FormControl('', Validators.required),
     });
+
+    /* this.form.get('email').valueChanges.pipe(debounceTime(1000)).subscribe((val: string) => {
+      console.log('Control email: ', val);
+    }); */
   }
 
   onEdit(student: IUser): void {
@@ -62,5 +74,7 @@ export class ListComponent implements OnInit {
     if (event) {
       this.onRegister();
     }
+    this.showModal = false;
+    this.form.reset();
   }
 }
