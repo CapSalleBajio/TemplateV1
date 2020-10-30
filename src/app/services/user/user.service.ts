@@ -71,9 +71,9 @@ export class UserService {
     if (userFound) {
       return null;
     }
-
-    this.users.push(user);
-    return user;
+    const newUser = {...user, id: this.users.length + 1};
+    this.users.push(newUser);
+    return newUser;
   }
 
   deleteById(id: number): number {

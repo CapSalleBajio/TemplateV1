@@ -37,7 +37,29 @@
 <button type="button" class="btn btn-primary" (click)="showModal = !showModal;"> Agregar </button>
 <app-modal [show]="showModal" (eventButtons)="onEventButtons($event)">
 
-  <app-new></app-new>
+  <div class="container" [formGroup]="form">
+    <div class="form-group">
+        <label for="exampleInputEmail1">Email</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" formControlName="email">
+        <small 
+          id="emailHelp" 
+          class="form-text text-muted"
+          *ngIf="form.get('email').touched && form.get('email').invalid"
+        >
+          <p *ngIf="form.get('email').getError('email')"> Email no valido </p>
+          <p *ngIf="form.get('email').getError('required')"> Campo requerido </p>
+        </small>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" formControlName="password">
+        <small 
+          id="passwordHelp" 
+          class="form-text text-muted"
+          *ngIf="form.get('password').touched && form.get('password').invalid"
+        > Campo requerido </small>
+    </div>
+  </div>
 
 
 </app-modal>
