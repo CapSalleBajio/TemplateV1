@@ -1,6 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Observable, Observer, Subject } from 'rxjs';
 import { IUser } from 'src/app/interfaces/user/user.interface';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +41,13 @@ export class UserService {
     },
   ];
 
-  constructor() {}
+  constructor(
+    private http: HttpClient,
+  ) {}
+
+  getAllUsers(): Observable<any> {
+    return this.http.get(`${environment.SERVER_URL}/users/`);
+  }
 
 
   getUsers(): IUser[] {

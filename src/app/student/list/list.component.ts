@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, take } from 'rxjs/operators';
 import { IUser } from 'src/app/interfaces/user/user.interface';
 import { UserService } from 'src/app/services/user/user.service';
 import { CustomValidators } from 'src/app/utils/custom-validators';
@@ -22,8 +22,14 @@ export class ListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.init();
+    this.initHttp();
+  }
+
+  init(): void {
     this.showModal = false;
-    this.students = this.userService.getUsersByRole('student');
+    // this.students = this.userService.getUsersByRole('student');
+    this.students = [];
 
     this.form = new FormGroup({
       email: new FormControl('',
@@ -39,6 +45,12 @@ export class ListComponent implements OnInit {
     /* this.form.get('email').valueChanges.pipe(debounceTime(1000)).subscribe((val: string) => {
       console.log('Control email: ', val);
     }); */
+  }
+
+  async initHttp(): Promise<void> {
+    const users = await this.userService.getAllUsers().toPromise();
+    this.students = users;
+
   }
 
   onEdit(student: IUser): void {
