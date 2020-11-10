@@ -58,17 +58,21 @@ export class ListComponent implements OnInit {
   }
 
   onDelete(index: number, id: number): void {
-    try {
-      this.userService.deleteById(id);
-      this.students.splice(index, 1);
-      console.log('Usuario eliminado');
-    } catch (error) {
-      console.error(error);
-    }
+    const that = this;
+    this.userService.deleteById(id).subscribe(
+      (res) => {
+        // console.log('this', this.students, that.students);
+        this.students.splice(index, 1);
+      },
+      (error) => { console.error(error); },
+      () => { console.log('Complete'); }
+    );
   }
 
+
+
   onRegister(): void {
-    console.log(this.form.value);
+    /* console.log(this.form.value);
     if (this.form.valid) {
       const res = this.userService.addStudent({...this.form.value, role: 'student'});
       if (res) {
@@ -79,7 +83,7 @@ export class ListComponent implements OnInit {
       }
     } else {
       console.log('Formulario inválido');
-    }
+    } */
   }
 
   onEventButtons(event: boolean): void {

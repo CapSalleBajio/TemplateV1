@@ -10,7 +10,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let student of students; index as i;">
+              <tr *ngFor="let student of students; index as index;">
                 <th scope="row"> {{ student.id }} </th>
                 <td> {{ student.email }} </td>
                 <td> {{ student.password }} </td>
@@ -24,7 +24,7 @@
                         <img 
                             src="./../../../assets/icons/delete.png" alt="" 
                             width="15px" height="auto" 
-                            (click)="onDelete(i, student.id)"
+                            (click)="onDelete(index, student.id)"
                         >
                     </div>
                 </td>

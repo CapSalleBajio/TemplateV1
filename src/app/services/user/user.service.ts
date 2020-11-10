@@ -63,35 +63,16 @@ export class UserService {
     return this.users.filter((user: IUser) => user.role === role);
   }
 
-  updateUser(user: IUser): IUser {
-    const index = this.users.findIndex((userF: IUser) => userF.id === user.id);
-    if (index !== -1) {
-      const newUser = {...this.users[index], ...user};
-      this.users[index] = newUser;
-      return newUser;
-    } else {
-      return null;
-    }
+  updateUser(user: IUser): Observable<IUser> {
+    return this.http.patch<IUser>(`${environment.SERVER_URL}/users/${user.id}`, user);
   }
 
-  addStudent(user: IUser): IUser {
-    const userFound = this.users.find((userF: IUser) => userF.email === user.email);
-    if (userFound) {
-      return null;
-    }
-    const newUser = {...user, id: this.users.length + 1};
-    this.users.push(newUser);
-    return newUser;
+  addStudent(user: IUser): Observable<IUser> {
+    return this.http.post<IUser>(`${environment.SERVER_URL}/users`, user);
   }
 
-  deleteById(id: number): number {
-    const index = this.users.findIndex((user: IUser) => user.id === id);
-    if (index !== -1) {
-      this.users.splice(index, 1);
-      return 1;
-    } else {
-      throw new Error('User not found');
-    }
+  deleteById(id: number): Observable<any> {
+    return this.http.delete(`${environment.SERVER_URL}/users/${id}`);
   }
 
   login(email: string, password: string): boolean {

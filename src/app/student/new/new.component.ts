@@ -52,14 +52,14 @@ export class NewComponent implements OnInit {
     }
   }
 
-  onRegister(): void {
+  async onRegister(): Promise<void> {
     console.log(this.form.value);
     if (this.form.valid) {
-      const res = this.userService.addStudent({...this.form.value, role: 'student'});
-      if (res) {
-        console.log('Usuario registrado');
-      } else {
-        console.error('El usuario ya existe.');
+      try {
+        const user = await this.userService.addStudent({...this.form.value, role: 'student'}).toPromise();
+        this.router.navigate(['/home/students/tpl/list']);
+      } catch (error) {
+        console.error('ERROR TO PROMISE: ', error);
       }
     } else {
       console.log('Formulario inválido');
@@ -68,13 +68,15 @@ export class NewComponent implements OnInit {
 
   onUpdate(): void {
     if (this.form.valid) {
-      const res = this.userService.updateUser({...this.form.value, id: +this.params.studentId});
-      if (res) {
-        console.log('Usuario actualizado');
-        this.router.navigate(['/', 'home', 'students', 'tpl', 'list']);
-      } else {
-        console.error('El usuario no existe.');
-      }
+      this.userService.updateUser({...this.form.value, id: +this.params.studentId}).subscribe(
+        (res) => {
+          console.log(res);
+          this.router.navigate(['/home/students/tpl/list']);
+        },
+        (error) => { console.error(error); },
+        () => {},
+      );
+      
     } else {
       console.log('Formulario inválido');
     }
