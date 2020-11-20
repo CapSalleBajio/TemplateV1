@@ -30,17 +30,21 @@ export class NewComponent implements OnInit {
 
   async getParams(): Promise<void> {
     this.activatedRoute.params.subscribe((params: Params) => {
-      console.log('Prams:' , params);
+      console.log('Parms:' , params);
       this.params = params;
+      // studentId corresponde al nombre que le definimos en las rutas (student-routing.module)
       if (params.studentId === 'new') {
+        // Si el valor de studentId es igual a new lo vamos a considerar como estudiante nuevo
+        // caso contrario vamos a actualizar el estudiante
         this.form.reset();
       }
     });
 
     try {
+      // Obtener parámetros utilzando async-await
       this.params = await this.activatedRoute.params.pipe(take(1)).toPromise();
 
-      const user = this.userService.getUserById(+this.params.studentId);
+      const user = await this.userService.getUserById(this.params.studentId).toPromise();
       if (user) {
         this.form = new FormGroup({
           email: new FormControl(user.email, [Validators.required, Validators.email]),
@@ -68,7 +72,7 @@ export class NewComponent implements OnInit {
 
   onUpdate(): void {
     if (this.form.valid) {
-      this.userService.updateUser({...this.form.value, id: +this.params.studentId}).subscribe(
+      this.userService.updateUser({...this.form.value, id: this.params.studentId}).subscribe(
         (res) => {
           console.log(res);
           this.router.navigate(['/home/students/tpl/list']);
@@ -76,7 +80,6 @@ export class NewComponent implements OnInit {
         (error) => { console.error(error); },
         () => {},
       );
-      
     } else {
       console.log('Formulario inválido');
     }

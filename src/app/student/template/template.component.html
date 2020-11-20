@@ -1,12 +1,14 @@
 <h1> Modulo de estudiantes </h1>
 
 <div class="container-fluid d-flex">
+    <!-- El siguiente bloque de código esta de forma estatica -->
     <div class="left-menu">
         <ul class="list-group">
             <li class="list-group-item" routerLink="/home/students/tpl/list" routerLinkActive="active"> Lista </li>
             <li class="list-group-item" routerLink="/home/students/tpl/new" routerLinkActive="active"> Agregar </li>
         </ul>
     </div>
+    <!-- El siguiente bloque de código se carga de forma dinamica -->
     <div class="container">
         <router-outlet></router-outlet>
     </div>

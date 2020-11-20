@@ -4,6 +4,7 @@ import { ListComponent } from './list/list.component';
 import { NewComponent } from './new/new.component';
 import { TemplateComponent } from './template/template.component';
 
+// localhos:4200/home `
 const routes: Routes =  [
     {path: 'tpl', component: TemplateComponent, children: [
         {path: 'list', component: ListComponent},

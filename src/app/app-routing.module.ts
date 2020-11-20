@@ -6,12 +6,16 @@ import { ExitGuard } from './guards/exit/exit.guard';
 import { HasSessionGuard } from './guards/hasSession/has-session.guard';
 import { StudentModule } from './student/student.module';
 
+// Archivo de rutas principal de la aplicación
 const routes: Routes = [
-  /* {path: '', component: UserListComponent, canDeactivate: [ExitGuard]},
-  {path: 'profile', component: UserProfileComponent}, */
+  // Módulo de autenticación (página de login y registro)
+  // En este caso se estan cargando los módulso por Lazy load
   {path: 'auth', loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule) },
+  // Módulo de con las características de la aplicación
   {path: 'home', loadChildren: () => import('./home/home.module').then((m) => m.HomeModule) },
+  // Comodin en caso de que no existan las rutas
   {path: '**', redirectTo: 'auth'}
+  // {path: '**', component: PageNotFoundComponent}
 ];
 
 @NgModule({

@@ -42,6 +42,7 @@ export class UserService {
   ];
 
   constructor(
+    // Para usar la clase HttpClient hay que agregar en el módulo el módulo de esta clase
     private http: HttpClient,
   ) {}
 
@@ -54,9 +55,9 @@ export class UserService {
     return this.users;
   }
 
-  getUserById(id: number): IUser {
-    const userFound = this.users.find((user: IUser) => user.id === id);
-    return userFound ? userFound : null;
+  getUserById(id: number): Observable<IUser> {
+    // Obtiene un usuario por su id
+    return this.http.get<IUser>(`${environment.SERVER_URL}/users/${id}`);
   }
 
   getUsersByRole(role: 'student' | 'teacher'): IUser[] {

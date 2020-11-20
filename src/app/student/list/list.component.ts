@@ -54,7 +54,7 @@ export class ListComponent implements OnInit {
   }
 
   onEdit(student: IUser): void {
-    this.router.navigate(['/', 'home', 'students', 'tpl', student.id]);
+    this.router.navigate(['/', 'home', 'students', 'tpl', student._id]);
   }
 
   onDelete(index: number, id: number): void {
