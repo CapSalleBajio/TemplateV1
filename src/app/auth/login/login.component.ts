@@ -24,17 +24,18 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  onLogin(): void {
+  async onLogin(): Promise<void> {
     if (this.form.valid) {
-      const isValid = this.userService.login(
-        this.form.get('email').value,
-        this.form.get('password').value,
-      );
 
-      if (isValid) {
-        this.router.navigate(['/home/students']);
-      } else {
-        console.log('El usuario no existe');
+      try {
+        // Inicio de sesión con firebase
+        const user = await this.userService.login(
+          this.form.get('email').value,
+          this.form.get('password').value,
+        );
+        this.router.navigate(['/', 'home', 'teachers']);
+      } catch (error) {
+        console.log('Error desde firebase: ', error);
       }
     } else {
       console.log('Hay errores en el formulario');

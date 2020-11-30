@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "salle-app-592bb": {
+      "hosting": {
+        "practica1": [
+          "salle-app-592bb"
+        ]
+      }
+    }
+  }
+}

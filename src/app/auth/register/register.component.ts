@@ -28,11 +28,18 @@ export class RegisterComponent implements OnInit {
     this.router.navigate(['/', 'auth', 'login']);
   }
 
-  onRegister(): void {
+  async onRegister(): Promise<void> {
     console.log(this.form.value);
     if (this.form.valid) {
-      this.userService.register(this.form.value);
-      this.router.navigate(['/', 'home']);
+
+      try {
+        const user = await this.userService.register(this.form.value);
+        console.log('Usuario registrado', user);
+        this.router.navigate(['/', 'home']);
+      } catch (error) {
+        console.error('Error en registro: ', error);
+      }
+
     } else {
       console.log('Formulario inválido');
     }

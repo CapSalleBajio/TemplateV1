@@ -3,6 +3,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { Observable, Observer, Subject } from 'rxjs';
 import { IUser } from 'src/app/interfaces/user/user.interface';
 import { environment } from 'src/environments/environment';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +45,7 @@ export class UserService {
   constructor(
     // Para usar la clase HttpClient hay que agregar en el módulo el módulo de esta clase
     private http: HttpClient,
+    private angularFireAuth: AngularFireAuth
   ) {}
 
   getAllUsers(): Observable<any> {
@@ -76,8 +78,10 @@ export class UserService {
     return this.http.delete(`${environment.SERVER_URL}/users/${id}`);
   }
 
-  login(email: string, password: string): boolean {
-    const userFound = this.users.find(
+  login(email: string, password: string): Promise<any> {
+    return this.angularFireAuth.signInWithEmailAndPassword(email, password);
+
+    /* const userFound = this.users.find(
       (user: IUser) => user.email === email && user.password === password
     );
     if (userFound) {
@@ -86,14 +90,11 @@ export class UserService {
     } else {
       localStorage.removeItem('user');
       return false;
-    }
+    } */
   }
 
-  register(user: IUser): IUser {
-    const userFinal = {...user, id: this.users.length + 1};
-    this.users.push(userFinal);
-    localStorage.setItem('user', JSON.stringify(userFinal));
-    return user;
+  register(user: IUser): Promise<any>  {
+    return this.angularFireAuth.createUserWithEmailAndPassword(user.email, user.password);
   }
 
   validateEmail(email: string): Observable<boolean> {
