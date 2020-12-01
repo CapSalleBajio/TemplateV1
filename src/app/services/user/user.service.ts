@@ -4,6 +4,8 @@ import { Observable, Observer, Subject } from 'rxjs';
 import { IUser } from 'src/app/interfaces/user/user.interface';
 import { environment } from 'src/environments/environment';
 import { AngularFireAuth } from '@angular/fire/auth';
+import firebase from 'firebase/app';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -42,11 +44,16 @@ export class UserService {
     },
   ];
 
+  private usersCollection: AngularFirestoreCollection<IUser>;
+
   constructor(
     // Para usar la clase HttpClient hay que agregar en el módulo el módulo de esta clase
     private http: HttpClient,
-    private angularFireAuth: AngularFireAuth
-  ) {}
+    private angularFireAuth: AngularFireAuth,
+    private angularFirestore: AngularFirestore,
+  ) {
+    this.usersCollection = angularFirestore.collection<IUser>('users');
+  }
 
   getAllUsers(): Observable<any> {
     return this.http.get(`${environment.SERVER_URL}/users/`);
@@ -74,6 +81,10 @@ export class UserService {
     return this.http.post<IUser>(`${environment.SERVER_URL}/users`, user);
   }
 
+  addTeacher(user: IUser): Promise<any> {
+    return this.usersCollection.add(user);
+  }
+
   deleteById(id: number): Observable<any> {
     return this.http.delete(`${environment.SERVER_URL}/users/${id}`);
   }
@@ -91,6 +102,10 @@ export class UserService {
       localStorage.removeItem('user');
       return false;
     } */
+  }
+
+  loginWithGoogle(): Promise<firebase.auth.UserCredential> {
+    return this.angularFireAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
 
   register(user: IUser): Promise<any>  {

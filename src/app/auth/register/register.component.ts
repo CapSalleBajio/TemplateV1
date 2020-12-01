@@ -32,13 +32,25 @@ export class RegisterComponent implements OnInit {
     console.log(this.form.value);
     if (this.form.valid) {
 
-      try {
-        const user = await this.userService.register(this.form.value);
-        console.log('Usuario registrado', user);
-        this.router.navigate(['/', 'home']);
-      } catch (error) {
-        console.error('Error en registro: ', error);
+      if (this.form.value.role === 'teacher') {
+        // Registro de usuarios de tipo teacher en firebase (base de datos)
+        try {
+          const teacher = await this.userService.addTeacher(this.form.value);
+          console.log('Maestro registrado: ', teacher);
+        } catch (error) {
+          console.log('Hubo un problema para registrar un maestro', error);
+        }
+      } else {
+        // Registro de usuarios de tipo student usando el modulo de autenticación de firebase (autenticación)
+        try {
+          const user = await this.userService.register(this.form.value);
+          console.log('Usuario registrado', user);
+          this.router.navigate(['/', 'home']);
+        } catch (error) {
+          console.error('Error en registro: ', error);
+        }
       }
+
 
     } else {
       console.log('Formulario inválido');

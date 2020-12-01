@@ -46,4 +46,14 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/', 'auth', 'register']);
   }
 
+  async onLoginWithGoogle(): Promise<void> {
+    try {
+      const userGoogle = await this.userService.loginWithGoogle();
+      console.log('usuario de google', userGoogle);
+      this.router.navigate(['/', 'home', 'teachers']);
+    } catch (error) {
+      console.log('Error con google: ', error);
+    }
+  }
+
 }
