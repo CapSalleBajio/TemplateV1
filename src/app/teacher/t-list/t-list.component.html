@@ -1,1 +1,23 @@
-<p>t-list works!</p>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">email</th>
+        <th scope="col">password</th>
+        <th scope="col">role</th>
+        <th scope="col">acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let teacher of teachers; index as index;">
+        <th scope="row"> {{ teacher._id }} </th>
+        <td> {{ teacher.email }}</td>
+        <td> {{ teacher.password }} </td>
+        <td> {{ teacher.role }} </td>
+        <td>
+            <button (click)="onDelete(teacher)"> Eliminar </button>
+            <button> Actualizar </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>

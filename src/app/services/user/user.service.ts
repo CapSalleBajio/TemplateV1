@@ -64,6 +64,13 @@ export class UserService {
     return this.users;
   }
 
+  /**
+   * Obtiene los maestros registrados en firebase
+   */
+  getTeachersFirebase(): Observable<IUser[]> {
+    return this.usersCollection.valueChanges({idField: '_id'});
+  }
+
   getUserById(id: number): Observable<IUser> {
     // Obtiene un usuario por su id
     return this.http.get<IUser>(`${environment.SERVER_URL}/users/${id}`);
@@ -81,6 +88,10 @@ export class UserService {
     return this.http.post<IUser>(`${environment.SERVER_URL}/users`, user);
   }
 
+  /**
+   * Método que agrega un usuario de tipo teacher a la base de datos en firebase
+   * @param user Objeto de tipo IUser
+   */
   addTeacher(user: IUser): Promise<any> {
     return this.usersCollection.add(user);
   }
@@ -89,6 +100,15 @@ export class UserService {
     return this.http.delete(`${environment.SERVER_URL}/users/${id}`);
   }
 
+  deleteTeacherById(id: string): Promise<void> {
+    return this.usersCollection.doc(id).delete();
+  }
+
+  /**
+   * Inicio de sesión con Email y password en firebase
+   * @param email email
+   * @param password password
+   */
   login(email: string, password: string): Promise<any> {
     return this.angularFireAuth.signInWithEmailAndPassword(email, password);
 

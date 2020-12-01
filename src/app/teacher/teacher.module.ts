@@ -4,10 +4,11 @@ import { CommonModule } from '@angular/common';
 import { TeacherRoutingModule } from './teacher-routing.module';
 import { TNewComponent } from './t-new/t-new.component';
 import { TListComponent } from './t-list/t-list.component';
+import { TTemplateComponent } from './t-template/t-template.component';
 
 
 @NgModule({
-  declarations: [TNewComponent, TListComponent],
+  declarations: [TNewComponent, TListComponent, TTemplateComponent],
   imports: [
     CommonModule,
     TeacherRoutingModule
