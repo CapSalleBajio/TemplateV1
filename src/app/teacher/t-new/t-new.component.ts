@@ -67,6 +67,9 @@ export class TNewComponent implements OnInit {
     }
   }
 
+  /**
+   * Método que agrega un usuario en firebase
+   */
   async onAdd(): Promise<void> {
     console.log(this.form);
     if (this.form.valid) {
@@ -77,8 +80,16 @@ export class TNewComponent implements OnInit {
     }
   }
 
+  /**
+   * Método que actualiza un usuario en firebase
+   */
   async onUpdate(): Promise<void> {
-    console.log('Actualizar maestro');
+    try {
+      await this.userService.updateTeacher(this.params.teacherId, this.form.value);
+      this.router.navigate(['/', 'home', 'teachers', 'tpl', 'list']);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
 

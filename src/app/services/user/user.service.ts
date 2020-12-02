@@ -92,6 +92,15 @@ export class UserService {
     return this.http.patch<IUser>(`${environment.SERVER_URL}/users/${user.id}`, user);
   }
 
+  /**
+   * Método que actualiza un maestro en firebase
+   * @param id Id del teacher
+   * @param teacher Objecto de tipo IUser
+   */
+  updateTeacher(id: string, teacher: IUser): Promise<void> {
+    return this.usersCollection.doc(id).update(teacher);
+  }
+
   addStudent(user: IUser): Observable<IUser> {
     return this.http.post<IUser>(`${environment.SERVER_URL}/users`, user);
   }
