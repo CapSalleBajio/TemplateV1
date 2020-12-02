@@ -11,7 +11,7 @@ const routes: Routes = [
   {path: 'tpl', children: [
     // Componentes cargados de forma dinamica
     {path: 'list', component: TListComponent},
-    {path: 'new', component: TNewComponent},
+    {path: ':teacherId', component: TNewComponent},
     {path: '**', redirectTo: 'list'}
   ], component: TTemplateComponent},
   {path: '**', redirectTo: 'tpl'}

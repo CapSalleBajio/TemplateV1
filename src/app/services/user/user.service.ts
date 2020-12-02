@@ -71,6 +71,14 @@ export class UserService {
     return this.usersCollection.valueChanges({idField: '_id'});
   }
 
+  /**
+   * Obtiene un maestro desde firebase por su id
+   * @param id id del maestro
+   */
+  getTeacherById(id: string): Observable<firebase.firestore.DocumentSnapshot<IUser>> {
+    return this.usersCollection.doc(id).get();
+  }
+
   getUserById(id: number): Observable<IUser> {
     // Obtiene un usuario por su id
     return this.http.get<IUser>(`${environment.SERVER_URL}/users/${id}`);

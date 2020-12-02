@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { IUser } from '../../interfaces/user/user.interface';
 import { UserService } from '../../services/user/user.service';
 
@@ -12,6 +13,7 @@ export class TListComponent implements OnInit {
 
   constructor(
     private userService: UserService,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -33,6 +35,14 @@ export class TListComponent implements OnInit {
     } catch (error) {
       console.log('No se pudo eliminar el maestro', error);
     }
+  }
+
+  /**
+   * Método que redirecciona al componeten t-new para poder ser editado
+   * @param teacher Objeto de tipo teacher
+   */
+  onUpdate(teacher: IUser): void {
+    this.router.navigate(['/', 'home', 'teachers', 'tpl', teacher._id]);
   }
 
 }
