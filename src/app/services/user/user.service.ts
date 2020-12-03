@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase/app';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -51,6 +52,7 @@ export class UserService {
     private http: HttpClient,
     private angularFireAuth: AngularFireAuth,
     private angularFirestore: AngularFirestore,
+    private angularFireStorage: AngularFireStorage,
   ) {
     this.usersCollection = angularFirestore.collection<IUser>('users');
   }
@@ -161,6 +163,16 @@ export class UserService {
         observer.complete();
       }, 1000);
     });
+  }
+
+  /**
+   * Método que guarda un archivo en firestore
+   * @param path ruta donde se almacenara el archivo
+   * @param data archivo a almacenar
+   */
+  async uploadFile(path: string, data: any): Promise<any> {
+    await this.angularFireStorage.upload(path, data); // (profile/my-file.png , archivo)
+    return await this.angularFireStorage.ref(path).getDownloadURL().toPromise();
   }
 
 }

@@ -1,4 +1,13 @@
 <div [formGroup]="form">
+
+    <div class="form-group" style="border-radius: 50%; display: flex; flex-direction: column; align-items: center;">
+        <img 
+            [src]="img" 
+            alt=""
+            width="150px" height="150px">
+            <input class="btn btn-primary" type="file" (change)="onChange($event)"> 
+    </div>
+
     <div class="form-group">
         <label for="exampleInputEmail1">Email</label>
         <input formControlName="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"placeholder="Enter email">
