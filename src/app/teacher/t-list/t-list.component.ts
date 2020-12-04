@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { takeUntil, takeWhile } from 'rxjs/operators';
 import { IUser } from '../../interfaces/user/user.interface';
 import { UserService } from '../../services/user/user.service';
 
@@ -8,8 +10,10 @@ import { UserService } from '../../services/user/user.service';
   templateUrl: './t-list.component.html',
   styleUrls: ['./t-list.component.scss']
 })
-export class TListComponent implements OnInit {
+export class TListComponent implements OnInit, OnDestroy {
   teachers: IUser[];
+  teachersObs: Subscription;
+  isActive: boolean;
 
   constructor(
     private userService: UserService,
@@ -18,7 +22,8 @@ export class TListComponent implements OnInit {
 
   ngOnInit(): void {
     this.teachers = [];
-    this.userService.getTeachersFirebase().subscribe((teachers: IUser[]) => {
+    this.isActive = true;
+    this.teachersObs = this.userService.getTeachersFirebase().pipe(takeWhile(() => this.isActive)).subscribe((teachers: IUser[]) => {
       this.teachers = teachers;
       console.log(teachers);
     });
@@ -43,6 +48,12 @@ export class TListComponent implements OnInit {
    */
   onUpdate(teacher: IUser): void {
     this.router.navigate(['/', 'home', 'teachers', 'tpl', teacher._id]);
+  }
+
+  ngOnDestroy(): void {
+    console.log('Lista de maestros destruida');
+    // this.teachersObs.unsubscribe();
+    // this.isActive = false;
   }
 
 }

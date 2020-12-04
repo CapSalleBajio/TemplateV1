@@ -5,7 +5,7 @@ import { IUser } from 'src/app/interfaces/user/user.interface';
 import { environment } from 'src/environments/environment';
 import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase/app';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 
 @Injectable({
@@ -111,7 +111,7 @@ export class UserService {
    * Método que agrega un usuario de tipo teacher a la base de datos en firebase
    * @param user Objeto de tipo IUser
    */
-  addTeacher(user: IUser): Promise<any> {
+  addTeacher(user: IUser): Promise<DocumentReference<IUser>> {
     return this.usersCollection.add(user);
   }
 

@@ -7,4 +7,5 @@
     name?: string;
     score?: number;
     description?: string;
+    profilePicture?: string;
 }
